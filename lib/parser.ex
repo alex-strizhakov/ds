@@ -3,16 +3,19 @@ defmodule DS.Parser do
   Parser module, which looks for cached value. If is not found, parses user agent by UAInspector (https://github.com/elixytics/ua_inspector)
   """
 
-  @type found :: {:found, DS.t()}
-  @type not_found :: {:not_found, DS.ua()}
+  @type found :: {:ok, DS.t()}
+  @type not_found :: {:error, DS.ua()}
   @type map_with_result :: %{ds: DS.t(), result: %UAInspector.Result{}}
 
-  @mobile_device_types ["smartphone", "tablet"]
+  @mobile_device_types ~w(smartphone tablet)
 
   @doc """
   Parses user agent
   """
   @spec parse(DS.ua()) :: DS.t()
+  def parse(""), do: %DS{}
+  def parse(nil), do: %DS{}
+
   def parse(ua) do
     ua
     |> check_cache()
@@ -21,16 +24,16 @@ defmodule DS.Parser do
 
   @spec check_cache(DS.ua()) :: found | not_found
   def check_cache(ua) do
-    case DS.Cache.UA.get(generate_key(ua)) do
-      nil -> {:not_found, ua}
-      json -> {:found, Poison.decode!(json, as: %DS{})}
+    case lookup_cache(generate_key(ua)) do
+      [] -> {:error, ua}
+      [{_key, json}] -> {:ok, struct(DS, Jason.decode!(json, keys: :atoms!))}
     end
   end
 
   @spec do_parse(found | not_found) :: DS.t()
-  defp do_parse({:found, ds}), do: ds
+  defp do_parse({:ok, ds}), do: ds
 
-  defp do_parse({:not_found, ua}) do
+  defp do_parse({:error, ua}) do
     ds =
       UAInspector.parse(ua)
       |> assemble_client()
@@ -38,8 +41,8 @@ defmodule DS.Parser do
       |> assemble_os
 
     with key <- generate_key(ua),
-         json <- Poison.encode!(ds) do
-      DS.Cache.UA.set(key, json)
+         json <- Jason.encode!(ds) do
+      write_cache(key, json)
     end
 
     ds
@@ -56,7 +59,7 @@ defmodule DS.Parser do
   # TODO: make PULL request for documentation fix, return Result OR Bot
   defp assemble_client(%UAInspector.Result.Bot{name: name}) do
     %DS{
-      bot?: true,
+      is_bot?: true,
       bot_name: name
     }
   end
@@ -80,7 +83,7 @@ defmodule DS.Parser do
         | device_type: device.type,
           device_brand: device.brand,
           device_model: to_string(device.model),
-          mobile?: device.type in @mobile_device_types
+          is_mobile?: device.type in @mobile_device_types
       },
       result: result
     }
@@ -96,5 +99,15 @@ defmodule DS.Parser do
   @spec generate_key(DS.ua()) :: String.t()
   defp generate_key(ua) do
     Base.encode16(:crypto.hash(:md5, ua), case: :lower)
+  end
+
+  @spec lookup_cache(String.t()) :: [] | [tuple()]
+  defp lookup_cache(key) do
+    :ets.lookup(Application.get_env(:ds, :table_name), key)
+  end
+
+  @spec write_cache(String.t(), String.t()) :: boolean()
+  defp write_cache(key, value) do
+    true = :ets.insert(Application.get_env(:ds, :table_name), {key, value})
   end
 end
