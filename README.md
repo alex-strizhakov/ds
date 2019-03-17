@@ -53,7 +53,7 @@ def ExampleController do
 end
 ```
 
-## Dependencies
+## Dependencies used in library
 
 ```elixir
 defp deps do
