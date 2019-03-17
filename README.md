@@ -52,3 +52,23 @@ def ExampleController do
   end
 end
 ```
+
+## Dependencies
+
+```elixir
+defp deps do
+    [
+      {:plug_cowboy, "~> 2.0"},
+      {:ua_inspector, "~> 0.20"},
+      {:jason, "~> 1.1"}
+    ]
+  end
+```
+
+- https://github.com/elixir-plug/plug_cowboy
+- https://github.com/elixytics/ua_inspector
+- https://github.com/michalmuskala/jason
+
+## License
+
+This project is licensed under the terms of the MIT license.
