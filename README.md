@@ -20,6 +20,8 @@ Run mix task for download UAInspector databases:
 $ mix ua_inspector.download
 ```
 
+## Usage
+
 Create new pipeline in your Router file:
 
 ```elixir
