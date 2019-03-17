@@ -1,5 +1,5 @@
 defmodule DSTest do
-  use ExUnit.Case
+  use DS.UACase, async: true
 
   test "parse/1 desktop ua" do
     ua =

@@ -1,12 +1,6 @@
 defmodule DS.ParserTest do
-  use ExUnit.Case
+  use DS.UACase, async: true
   alias DS.Parser
-
-  setup do
-    # Wait until UAInspector loads all DBs.
-    wait_for(fn -> UAInspector.ready?() end)
-    :ok
-  end
 
   test "parse/1 for web client" do
     ua =
@@ -112,14 +106,5 @@ defmodule DS.ParserTest do
              os: nil,
              os_version: nil
            }
-  end
-
-  def wait_for(func) do
-    :timer.sleep(100)
-
-    case func.() do
-      true -> true
-      false -> wait_for(func)
-    end
   end
 end
