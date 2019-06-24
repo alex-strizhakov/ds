@@ -7,7 +7,10 @@ defmodule DSPlug do
   def init(_opts), do: false
 
   def call(conn, _opts) do
-    [ua] = get_req_header(conn, "user-agent")
-    assign(conn, :device_info, DS.parse(ua))
+    with [ua] <- get_req_header(conn, "user-agent") do
+      assign(conn, :device_info, DS.parse(ua))
+    else
+      _ -> conn
+    end
   end
 end
