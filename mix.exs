@@ -4,7 +4,7 @@ defmodule DS.MixProject do
   def project do
     [
       app: :ds,
-      version: "1.1",
+      version: "1.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
