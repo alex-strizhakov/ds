@@ -1,9 +1,9 @@
-name: Test
+name: Test & lint
 
-on: push
+on: [push, pull_request]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -24,15 +24,20 @@ jobs:
         mix local.rebar --force
         mix local.hex --force
         mix deps.get
-        mix ua_inspector.download
+        mix ua_inspector.download -f
+
     - name: Run Tests
       run: mix test
-  format:
+
+  lint:
+
     runs-on: ubuntu-latest
+
     container:
       image: elixir:1.9.1-slim
+
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
     - name: Install Dependencies
       run: |
         mix local.rebar --force
