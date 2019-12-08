@@ -12,9 +12,9 @@ defmodule DS.Parser do
   @doc """
   Parses user agent
   """
-  @spec parse(DS.ua()) :: DS.t()
-  def parse(""), do: %DS{}
-  def parse(nil), do: %DS{}
+  @spec parse(DS.ua()) :: DS.t() | nil
+  def parse(""), do: nil
+  def parse(nil), do: nil
 
   def parse(ua) do
     ua

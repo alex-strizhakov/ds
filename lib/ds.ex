@@ -38,6 +38,6 @@ defmodule DS do
   @doc """
   Parses user agent.
   """
-  @spec parse(ua) :: t
+  @spec parse(ua) :: t() | nil
   defdelegate parse(ua), to: Parser
 end

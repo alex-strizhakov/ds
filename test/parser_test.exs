@@ -107,4 +107,9 @@ defmodule DS.ParserTest do
              os_version: nil
            }
   end
+
+  test "empty string or nil returns nil" do
+    assert is_nil(Parser.parse(""))
+    assert is_nil(Parser.parse(nil))
+  end
 end
