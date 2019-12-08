@@ -9,7 +9,7 @@ The module can be installed by adding `ds` to your list of dependencies in `mix.
 ```elixir
 def deps do
   [
-    {:ds, git: "https://github.com/alex-strizhakov/ds"}
+    {:ds, "~> 1.0"}
   ]
 end
 ```
