@@ -7,7 +7,7 @@ defmodule DS.Parser do
   @type not_found :: {:error, DS.ua()}
   @type map_with_result :: %{ds: DS.t(), result: %UAInspector.Result{}}
 
-  @mobile_device_types ~w(smartphone tablet)
+  @mobile_device_types ["smartphone", "tablet", "phablet", "feature phone"]
 
   @doc """
   Parses user agent
