@@ -81,7 +81,7 @@ defmodule DS.Parser do
       ds: %{
         ds
         | device_type: to_string(device.type),
-          device_brand: device.brand,
+          device_brand: to_string(device.brand),
           device_model: to_string(device.model),
           is_mobile?: device.type in @mobile_device_types
       },
