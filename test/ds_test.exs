@@ -9,7 +9,7 @@ defmodule DSTest do
              bot_name: nil,
              browser: "Chrome",
              browser_version: "65.0.3315.4",
-             device_brand: :unknown,
+             device_brand: "unknown",
              device_model: "unknown",
              device_type: "desktop",
              is_bot?: false,
