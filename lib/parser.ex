@@ -93,7 +93,7 @@ defmodule DS.Parser do
   defp assemble_os(%DS{} = ds), do: ds
 
   defp assemble_os(%{ds: ds, result: %{os: os}}) do
-    %{ds | os: os.name, os_version: os.version}
+    %{ds | os: os.name, os_version: to_string(os.version)}
   end
 
   @spec generate_key(DS.ua()) :: String.t()
