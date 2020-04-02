@@ -29,7 +29,7 @@ defmodule DS.MixProject do
   defp deps do
     [
       {:plug_cowboy, "~> 2.1"},
-      {:ua_inspector, "~> 1.2"},
+      {:ua_inspector, "~> 2.0"},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false}
     ]
   end
