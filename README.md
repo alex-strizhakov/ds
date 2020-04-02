@@ -76,15 +76,13 @@ iex(1)> DS.parse("Mozilla/5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/537
 defp deps do
   [
     {:plug_cowboy, "~> 2.1"},
-    {:ua_inspector, "~> 1.0"},
-    {:jason, "~> 1.1"}
+    {:ua_inspector, "~> 1.0"}
   ]
 end
 ```
 
 - https://github.com/elixir-plug/plug_cowboy
 - https://github.com/elixytics/ua_inspector
-- https://github.com/michalmuskala/jason
 
 ## License
 

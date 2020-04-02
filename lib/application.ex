@@ -4,7 +4,7 @@ defmodule DS.Application do
   use Application
 
   def start(_type, _args) do
-    :ets.new(Application.get_env(:ds, :table_name), [
+    :ets.new(:ds_cache, [
       :named_table,
       :set,
       :public,

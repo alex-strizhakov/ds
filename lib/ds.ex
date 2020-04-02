@@ -2,7 +2,7 @@ defmodule DS do
   @moduledoc """
   Device Structure module.
 
-  This module defines a `DS` struct and the main functions for working with devices.
+  This module defines a `DS` struct.
   """
   alias DS.Parser
 
@@ -23,7 +23,6 @@ defmodule DS do
           bot_name: String.t()
         }
 
-  @derive Jason.Encoder
   defstruct browser: nil,
             browser_version: nil,
             os: nil,
