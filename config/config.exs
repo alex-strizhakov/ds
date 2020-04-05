@@ -28,6 +28,3 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env()}.exs"
-config :ua_inspector,
-  database_path: "ua_inspector",
-  pool: [max_overflow: 100, size: 1000]
